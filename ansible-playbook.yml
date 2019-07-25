@@ -1,0 +1,23 @@
+---
+- name: Installing Ansible 
+  hosts: all
+  become: true
+  tasks:
+    - name: Update APT cache
+      apt: 
+        update_cache: yes
+
+    - name: Add Ansible PPA
+      apt_repository: 
+        repo: ppa:ansible/ansible 
+        update_cache: yes
+
+    - name: Install Required Packages
+      apt: 
+        name: "{{ packages }}" 
+        state: latest
+      vars:
+        packages:
+          - software-properties-common
+          - ansible
+
